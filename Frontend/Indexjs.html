@@ -174,26 +174,50 @@
             </div>
         </div>
     </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section py-5">
-        <div class="container text-center">
-            <h2>Contact Us</h2>
-            <form class="mt-4">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Your Name" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Your Email" required>
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
-                </div>
-                <button type="submit" class="btn btn-light">Send Message</button>
-            </form>
+    <form id="contactForm" class="mt-4">
+        <div class="mb-3">
+            <input type="text" id="name" class="form-control" placeholder="Your Name" required>
         </div>
-    </section>
-
+        <div class="mb-3">
+            <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+        </div>
+        <div class="mb-3">
+            <textarea id="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-light">Send Message</button>
+    </form>
+    
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+    
+        try {
+            const response = await fetch('http://localhost:5000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            const data = await response.json();
+            alert(data.message);
+            
+            if (response.ok) {
+                document.getElementById('contactForm').reset();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again later.');
+        }
+    });
+    </script>
     <!-- Footer -->
     <footer class="footer py-3 text-center">
         <p>&copy; 2025 <a href="#">Kisan Suvidha</a>. All rights reserved.</p>
