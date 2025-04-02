@@ -1,4 +1,4 @@
-const Contact = require('../models/Contact');
+const Contact = require('./models/Contact');
 
 exports.submitContactForm = async (req, res, next) => {
   try {
