@@ -156,4 +156,20 @@ services.forEach(service => {
         });
     });
 });
+// In your frontend scripts.js
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      })
+    });
+    
+    // Handle response...
+  });
 
